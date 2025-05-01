@@ -83,7 +83,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## 📧 Contact
 
-Nishan Bhattarai - [@your_twitter](https://twitter.com/your_twitter) - your.email@example.com
+Nishan Bhattarai  - nishanbhattarai1234567@gmail.com
 
 Project Link: [https://github.com/Nishanbhattarai498/blog_app](https://github.com/Nishanbhattarai498/blog_app)
 
