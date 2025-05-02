@@ -6,6 +6,14 @@ class AuthField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(decoration: InputDecoration(hintText: hintText));
+    return TextFormField(
+      decoration: InputDecoration(hintText: hintText),
+      validator: (value) {
+        if (value!.isEmpty) {
+          return "Please enter your $hintText";
+        }
+        return null;
+      },
+    );
   }
 }
