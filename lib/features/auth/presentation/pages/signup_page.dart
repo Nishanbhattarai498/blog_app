@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:supabase_proj/core/theme/app_pallate.dart';
 import 'package:supabase_proj/features/auth/presentation/widgets/auth_field.dart';
 import 'package:supabase_proj/features/auth/presentation/widgets/auth_gradient_button.dart';
 
@@ -38,7 +39,9 @@ class SignupPageState extends State<SignupPage> {
                 children: [
                   TextSpan(
                     text: " Sign In",
-                    style: Theme.of(context).textTheme.titleMedium,
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      color: AppPallete.gradient2,
+                    ),
                   ),
                 ],
               ),
