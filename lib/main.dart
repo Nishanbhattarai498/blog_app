@@ -3,7 +3,7 @@ import 'package:supabase_proj/core/theme/theme.dart';
 import 'package:supabase_proj/features/auth/presentation/pages/login_page.dart';
 import 'package:supabase_proj/features/auth/presentation/pages/signup_page.dart';
 
-void main() {
+void main() async {
   runApp(const MyApp());
 }
 

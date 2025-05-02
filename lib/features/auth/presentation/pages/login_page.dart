@@ -5,6 +5,7 @@ import 'package:supabase_proj/features/auth/presentation/widgets/auth_field.dart
 import 'package:supabase_proj/features/auth/presentation/widgets/auth_gradient_button.dart';
 
 class LoginPage extends StatefulWidget {
+  static Route() => MaterialPageRoute(builder: (context) => const LoginPage());
   const LoginPage({super.key});
 
   @override
