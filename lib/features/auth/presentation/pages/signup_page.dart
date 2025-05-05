@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supabase_proj/core/theme/app_pallate.dart';
+import 'package:supabase_proj/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:supabase_proj/features/auth/presentation/pages/login_page.dart';
 import 'package:supabase_proj/features/auth/presentation/widgets/auth_field.dart';
 import 'package:supabase_proj/features/auth/presentation/widgets/auth_gradient_button.dart';
@@ -54,7 +56,20 @@ class SignupPageState extends State<SignupPage> {
                 isObscureText: true,
               ),
               const SizedBox(height: 20),
-              const AuthGradientButton(buttonText: 'Sign Up'),
+              AuthGradientButton(
+                buttonText: 'Sign Up',
+                onPressed: () {
+                  if (formkey.currentState!.validate()) {
+                    context.read<AuthBloc>().add(
+                      AuthSignUp(
+                        name: nameController.text.trim(),
+                        email: emailController.text.trim(),
+                        password: passwordController.text.trim(),
+                      ),
+                    );
+                  }
+                },
+              ),
               const SizedBox(height: 20),
               GestureDetector(
                 onTap: () {
