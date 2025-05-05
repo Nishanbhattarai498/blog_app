@@ -1,6 +1,6 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:supabase_proj/core/error/failures.dart';
 
-abstract interface class Usecase<SuccessType, params> {
-  Future<Either<Failure, SuccessType>> call(params params);
+abstract class UseCase<Type, Params> {
+  Future<Either<Failure, Type>> call(Params params);
 }

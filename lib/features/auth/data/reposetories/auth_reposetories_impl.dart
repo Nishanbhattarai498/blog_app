@@ -10,29 +10,40 @@ class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl({required this.authRemoteDataSource});
 
   @override
-  Future<Either<Failure, String>> loginWithEmailAndPassword({
-    required String email,
-    required String password,
-  }) {
-    // TODO: implement loginWithEmailAndPassword
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<Either<Failure, String>> signUpwithEmailAndPassword({
-    required String name,
+  Future<Either<Failure, String>> loginWithEmailPassword({
     required String email,
     required String password,
   }) async {
     try {
-      final response = await authRemoteDataSource.signUpwithEmailPassword(
-        name: name,
+      final result = await authRemoteDataSource.loginWithEmailPassword(
         email: email,
         password: password,
       );
-      return Right(response);
+      return Right(result);
     } on ServerException catch (e) {
       return Left(Failure(e.message));
+    } catch (e) {
+      return Left(Failure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> signUpWithEmailPassword({
+    required String email,
+    required String password,
+    required String name,
+  }) async {
+    try {
+      final result = await authRemoteDataSource.signUpWithEmailPassword(
+        email: email,
+        password: password,
+        name: name,
+      );
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(Failure(e.message));
+    } catch (e) {
+      return Left(Failure(e.toString()));
     }
   }
 }

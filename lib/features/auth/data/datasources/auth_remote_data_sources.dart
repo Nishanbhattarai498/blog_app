@@ -1,29 +1,23 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:supabase_proj/core/error/exceptions.dart';
 
-abstract interface class AuthRemoteDataSource {
-  /// Calls the login endpoint.
-  ///
-  /// Throws a [ServerException] for all error codes.
+abstract class AuthRemoteDataSource {
   Future<String> loginWithEmailPassword({
     required String email,
     required String password,
   });
 
-  /// Calls the register endpoint.
-  ///
-  /// Throws a [ServerException] for all error codes.
-  Future<String> signUpwithEmailPassword({
+  Future<String> signUpWithEmailPassword({
     required String email,
     required String password,
     required String name,
   });
 }
 
-class AuthRemoteDataSourcesImpl implements AuthRemoteDataSource {
+class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   final SupabaseClient supabaseClient;
 
-  AuthRemoteDataSourcesImpl({required this.supabaseClient});
+  AuthRemoteDataSourceImpl({required this.supabaseClient});
 
   @override
   Future<String> loginWithEmailPassword({
@@ -35,17 +29,21 @@ class AuthRemoteDataSourcesImpl implements AuthRemoteDataSource {
         email: email,
         password: password,
       );
+
       if (response.user == null) {
-        throw ServerException('User not found');
+        throw ServerException('Login failed');
       }
+
       return response.user!.id;
+    } on AuthException catch (e) {
+      throw ServerException(e.message);
     } catch (e) {
-      throw ServerException('e.toString()');
+      throw ServerException(e.toString());
     }
   }
 
   @override
-  Future<String> signUpwithEmailPassword({
+  Future<String> signUpWithEmailPassword({
     required String email,
     required String password,
     required String name,
@@ -56,13 +54,16 @@ class AuthRemoteDataSourcesImpl implements AuthRemoteDataSource {
         password: password,
         data: {'name': name},
       );
+
       if (response.user == null) {
-        throw ServerException('User not found');
+        throw ServerException('Signup failed');
       }
-      // Optionally, you can also send a confirmation email if needed
+
       return response.user!.id;
+    } on AuthException catch (e) {
+      throw ServerException(e.message);
     } catch (e) {
-      throw ServerException('e.toString()');
+      throw ServerException(e.toString());
     }
   }
 }
