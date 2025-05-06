@@ -4,6 +4,7 @@ import 'package:supabase_proj/core/secrets/app_secrets.dart';
 import 'package:supabase_proj/features/auth/data/datasources/auth_remote_data_sources.dart';
 import 'package:supabase_proj/features/auth/data/reposetories/auth_reposetories_impl.dart';
 import 'package:supabase_proj/features/auth/domain/repositery/auth_repository.dart';
+import 'package:supabase_proj/features/auth/domain/usecases/current_user.dart';
 import 'package:supabase_proj/features/auth/domain/usecases/user_signin.dart';
 import 'package:supabase_proj/features/auth/domain/usecases/user_signup.dart';
 import 'package:supabase_proj/features/auth/presentation/bloc/auth_bloc.dart';
@@ -30,7 +31,12 @@ void _initAuth() {
     () => UserSignUp(authRepository: serviceLocator()),
   );
   serviceLocator.registerFactory(() => UserLogin(serviceLocator()));
-  serviceLocator.registerFactory(
-    () => AuthBloc(userSignUp: serviceLocator(), userLogin: serviceLocator()),
+  serviceLocator.registerFactory(() => CurrentUser(serviceLocator()));
+  serviceLocator.registerLazySingleton(
+    () => AuthBloc(
+      userSignUp: serviceLocator(),
+      userLogin: serviceLocator(),
+      currentUser: serviceLocator(),
+    ),
   );
 }
