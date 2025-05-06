@@ -1,7 +1,7 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:supabase_proj/core/error/failures.dart';
 import 'package:supabase_proj/core/usecase/usecase.dart';
+import 'package:supabase_proj/features/auth/domain/entities/user.dart';
 import 'package:supabase_proj/features/auth/domain/repositery/auth_repository.dart';
 
 class UserSignUpParams {
@@ -22,8 +22,8 @@ class UserSignUp implements UseCase<User, UserSignUpParams> {
   UserSignUp({required this.authRepository});
 
   @override
-  Future<Either<Failure, User>> call(UserSignUpParams params) async {
-    return await authRepository.signUpWithEmailPassword(
+  Future<Either<Failure, User>> call(UserSignUpParams params) {
+    return authRepository.signUpWithEmailPassword(
       email: params.email,
       password: params.password,
       name: params.name,

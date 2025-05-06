@@ -7,7 +7,6 @@ class UserModel extends User {
     return UserModel(
       id: map['id'] ?? '',
       name: map['name'] ?? '',
-
       email: map['email'] ?? '',
     );
   }
