@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supabase_proj/core/usecase/usecase.dart';
-import 'package:supabase_proj/features/auth/domain/entities/user.dart';
+import 'package:supabase_proj/core/common/entities/user.dart';
 import 'package:supabase_proj/features/auth/domain/usecases/current_user.dart';
 import 'package:supabase_proj/features/auth/domain/usecases/user_signin.dart';
 import 'package:supabase_proj/features/auth/domain/usecases/user_signup.dart';

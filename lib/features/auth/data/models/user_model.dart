@@ -1,4 +1,4 @@
-import 'package:supabase_proj/features/auth/domain/entities/user.dart';
+import 'package:supabase_proj/core/common/entities/user.dart';
 
 class UserModel extends User {
   UserModel({required super.id, required super.name, required super.email});

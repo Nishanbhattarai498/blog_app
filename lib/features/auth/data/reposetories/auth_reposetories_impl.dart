@@ -3,7 +3,7 @@ import 'package:supabase_proj/core/error/exceptions.dart';
 import 'package:supabase_proj/core/error/failures.dart';
 import 'package:supabase_proj/features/auth/data/datasources/auth_remote_data_sources.dart';
 import 'package:supabase_proj/features/auth/data/models/user_model.dart';
-import 'package:supabase_proj/features/auth/domain/entities/user.dart';
+import 'package:supabase_proj/core/common/entities/user.dart';
 import 'package:supabase_proj/features/auth/domain/repositery/auth_repository.dart';
 
 class AuthRepositoryImpl implements AuthRepository {

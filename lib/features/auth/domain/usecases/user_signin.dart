@@ -1,7 +1,7 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:supabase_proj/core/error/failures.dart';
 import 'package:supabase_proj/core/usecase/usecase.dart';
-import 'package:supabase_proj/features/auth/domain/entities/user.dart';
+import 'package:supabase_proj/core/common/entities/user.dart';
 import 'package:supabase_proj/features/auth/domain/repositery/auth_repository.dart';
 
 class UserLogin implements UseCase<User, UserLoginParams> {
