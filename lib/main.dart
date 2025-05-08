@@ -6,6 +6,7 @@ import 'package:supabase_proj/core/theme/theme.dart';
 
 import 'package:supabase_proj/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:supabase_proj/features/auth/presentation/pages/login_page.dart';
+import 'package:supabase_proj/features/blog/presentation/pages/blog_page.dart';
 import 'package:supabase_proj/init_dependencies.dart';
 
 void main() async {
@@ -50,7 +51,7 @@ class _MyAppState extends State<MyApp> {
         },
         builder: (context, isLoggedIn) {
           if (isLoggedIn) {
-            return Scaffold(body: Center(child: Text('logged In!!')));
+            return const BlogPage();
           }
           return const LoginPage();
         },
