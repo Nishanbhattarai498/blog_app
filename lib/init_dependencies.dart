@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:supabase_proj/core/common/cubits/app_user/app_user_cubit.dart';
 import 'package:supabase_proj/core/secrets/app_secrets.dart';
 import 'package:supabase_proj/features/auth/data/datasources/auth_remote_data_sources.dart';
 import 'package:supabase_proj/features/auth/data/reposetories/auth_reposetories_impl.dart';
@@ -18,6 +19,8 @@ Future<void> initDependencies() async {
   );
   serviceLocator.registerLazySingleton(() => supabase.client);
   _initAuth();
+
+  serviceLocator.registerLazySingleton(() => AppUserCubit());
 }
 
 void _initAuth() {
@@ -37,6 +40,7 @@ void _initAuth() {
       userSignUp: serviceLocator(),
       userLogin: serviceLocator(),
       currentUser: serviceLocator(),
+      appUserCubit: serviceLocator(),
     ),
   );
 }
