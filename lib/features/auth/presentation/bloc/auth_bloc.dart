@@ -32,10 +32,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async {
     emit(AuthLoading());
     final result = await _currentUser.call(NoParams());
-    result.fold(
-      (l) => emit(AuthFailure(l.message)),
-      (user) => emit(AuthSuccess(user)),
-    );
+    result.fold((l) => emit(AuthFailure(l.message)), (user) {
+      print('user is logged in');
+      print(user.id);
+      emit(AuthSuccess(user));
+    });
   }
 
   Future<void> _onAuthSignUp(AuthSignUp event, Emitter<AuthState> emit) async {
