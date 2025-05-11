@@ -6,6 +6,7 @@ import 'package:supabase_proj/core/theme/theme.dart';
 
 import 'package:supabase_proj/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:supabase_proj/features/auth/presentation/pages/login_page.dart';
+import 'package:supabase_proj/features/blog/presentation/bloc/blog_bloc.dart';
 import 'package:supabase_proj/features/blog/presentation/pages/blog_page.dart';
 import 'package:supabase_proj/init_dependencies.dart';
 
@@ -19,6 +20,7 @@ void main() async {
       providers: [
         BlocProvider(create: (_) => serviceLocator<AppUserCubit>()),
         BlocProvider(create: (_) => serviceLocator<AuthBloc>()),
+        BlocProvider(create: (_) => serviceLocator<BlogBloc>()),
       ],
       child: const MyApp(),
     ),

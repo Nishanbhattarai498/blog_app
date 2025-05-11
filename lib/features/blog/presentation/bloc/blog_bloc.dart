@@ -11,7 +11,7 @@ class BlogBloc extends Bloc<BlogEvent, BlogState> {
   final UploadBlog uploadBlog;
   BlogBloc(this.uploadBlog) : super(BlogInitial()) {
     on<BlogEvent>((event, emit) => emit(BlogLoading()));
-    on<BlogUploadEvent>();
+    on<BlogUploadEvent>(_onBlogUpload);
   }
 
   void _onBlogUpload(BlogUploadEvent event, Emitter<BlogState> emit) async {
@@ -23,6 +23,11 @@ class BlogBloc extends Bloc<BlogEvent, BlogState> {
         content: event.content,
         topics: event.topics,
       ),
+    );
+
+    res.fold(
+      (failure) => emit(BlogFailure(error: failure.message)),
+      (blog) => emit(BlogSuccess()),
     );
   }
 }
