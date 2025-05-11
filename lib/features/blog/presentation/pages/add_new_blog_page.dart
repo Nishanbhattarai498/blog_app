@@ -30,7 +30,7 @@ class _AddNewBlogPageState extends State<AddNewBlogPage> {
 
     try {
       final pickedImage = await ImagePickerUtil.pickImage(context);
-      if (pickedImage != null) {
+      if (pickedImage != null && await pickedImage.exists()) {
         setState(() {
           image = pickedImage;
         });
@@ -67,12 +67,33 @@ class _AddNewBlogPageState extends State<AddNewBlogPage> {
               image != null
                   ? Stack(
                       children: [
-                        Image.file(
-                          image!,
-                          width: double.infinity,
-                          height: 200,
-                          fit: BoxFit.cover,
-                        ),
+                        image!.path.endsWith('.txt')
+                            ? Container(
+                                width: double.infinity,
+                                height: 200,
+                                color: Colors.grey[300],
+                                child: const Center(
+                                  child: Text('Test Placeholder Image'),
+                                ),
+                              )
+                            : Image.file(
+                                image!,
+                                width: double.infinity,
+                                height: 200,
+                                fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) {
+                                  // Handle image loading errors gracefully
+                                  print('Error loading image: $error');
+                                  return Container(
+                                    width: double.infinity,
+                                    height: 200,
+                                    color: Colors.grey[300],
+                                    child: const Center(
+                                      child: Text('Failed to load image'),
+                                    ),
+                                  );
+                                },
+                              ),
                         Positioned(
                           top: 10,
                           right: 10,
