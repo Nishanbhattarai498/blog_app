@@ -41,4 +41,17 @@ class BlogModel extends Blog {
       'updated_at': updatedAt.toIso8601String(),
     };
   }
+
+  BlogModel copyWith({required String imageUrl}) {
+    return BlogModel(
+      id: id,
+      title: title,
+      posterID: posterID,
+      imageUrl: imageUrl,
+      content: content,
+      topics: topics,
+      createdAt: createdAt,
+      updatedAt: updatedAt,
+    );
+  }
 }
