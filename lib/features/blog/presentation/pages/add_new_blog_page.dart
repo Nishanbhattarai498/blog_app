@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_proj/core/theme/app_pallate.dart';
+import 'package:supabase_proj/core/utils/image_picker_util.dart';
 import 'package:supabase_proj/features/blog/presentation/widgets/blog_editor.dart';
 
 class AddNewBlogPage extends StatefulWidget {
@@ -16,11 +19,38 @@ class _AddNewBlogPageState extends State<AddNewBlogPage> {
   final titleController = TextEditingController();
   final contentController = TextEditingController();
   List<String> selectedTopics = [];
+  File? image;
+  bool isPickingImage = false;
+  void selectImage() async {
+    if (isPickingImage) return; // Prevent multiple taps
+
+    setState(() {
+      isPickingImage = true;
+    });
+
+    try {
+      final pickedImage = await ImagePickerUtil.pickImage(context);
+      if (pickedImage != null) {
+        setState(() {
+          image = pickedImage;
+        });
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Failed to pick image: $e')));
+    } finally {
+      setState(() {
+        isPickingImage = false;
+      });
+    }
+  }
 
   @override
   void dispose() {
     titleController.dispose();
     contentController.dispose();
+    super.dispose(); // Don't forget to call super.dispose()
   }
 
   @override
@@ -34,25 +64,68 @@ class _AddNewBlogPageState extends State<AddNewBlogPage> {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              DottedBorder(
-                color: AppPallete.borderColor,
-                dashPattern: [20, 4],
-                radius: const Radius.circular(10),
-                borderType: BorderType.RRect,
-                strokeCap: StrokeCap.round,
-                child: Container(
-                  height: 150,
-                  width: double.infinity,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.folder_open, size: 40),
-                      SizedBox(height: 15),
-                      Text('Select Your Image', style: TextStyle(fontSize: 15)),
-                    ],
-                  ),
-                ),
-              ),
+              image != null
+                  ? Stack(
+                      children: [
+                        Image.file(
+                          image!,
+                          width: double.infinity,
+                          height: 200,
+                          fit: BoxFit.cover,
+                        ),
+                        Positioned(
+                          top: 10,
+                          right: 10,
+                          child: GestureDetector(
+                            onTap: selectImage,
+                            child: Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: Colors.black.withOpacity(0.7),
+                                shape: BoxShape.circle,
+                              ),
+                              child: const Icon(
+                                Icons.edit,
+                                color: Colors.white,
+                                size: 20,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                  : GestureDetector(
+                      onTap: selectImage,
+                      child: DottedBorder(
+                        color: AppPallete.borderColor,
+                        dashPattern: const [20, 4],
+                        radius: const Radius.circular(10),
+                        borderType: BorderType.RRect,
+                        strokeCap: StrokeCap.round,
+                        child: Container(
+                          height: 150,
+                          width: double.infinity,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              isPickingImage
+                                  ? const CircularProgressIndicator()
+                                  : const Icon(
+                                      Icons.add_photo_alternate,
+                                      size: 40,
+                                    ),
+                              const SizedBox(height: 15),
+                              Text(
+                                isPickingImage
+                                    ? 'Loading...'
+                                    : 'Select Your Image',
+                                style: const TextStyle(fontSize: 15),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
               const SizedBox(height: 20),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,

@@ -40,10 +40,16 @@
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
-	<key>CADisableMinimumFrameDurationOnPhone</key>
+	</array>	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<!-- Permission descriptions for photo library access -->
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app requires access to your photo library to upload images for blog posts.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>This app requires access to your camera to take photos for blog posts.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This app requires access to your microphone for videos with sound.</string>
 </dict>
 </plist>

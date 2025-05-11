@@ -25,8 +25,14 @@
 	<key>NSHumanReadableCopyright</key>
 	<string>$(PRODUCT_COPYRIGHT)</string>
 	<key>NSMainNibFile</key>
-	<string>MainMenu</string>
-	<key>NSPrincipalClass</key>
+	<string>MainMenu</string>	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<!-- Permission descriptions for photo library access on macOS -->
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app requires access to your photo library to upload images for blog posts.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>This app requires access to your camera to take photos for blog posts.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This app requires access to your microphone for videos with sound.</string>
 </dict>
 </plist>
