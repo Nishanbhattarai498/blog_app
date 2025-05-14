@@ -64,6 +64,13 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         throw ServerException('Signup failed');
       }
 
+      // Insert into profiles table
+      await supabaseClient.from('profiles').insert({
+        'id': response.user!.id,
+        'name': name,
+        'email': email,
+      });
+
       return UserModel.fromJson(response.user!.toJson());
     } on AuthException catch (e) {
       throw ServerException(e.message);
