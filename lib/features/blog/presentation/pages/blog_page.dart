@@ -33,6 +33,39 @@ class _BlogPageState extends State<BlogPage> {
           ),
         ],
       ),
+      body: BlocConsumer<BlogBloc, BlogState>(
+        listener: (context, state) {
+          if (state is BlogFailure) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(state.error), backgroundColor: Colors.red),
+            );
+          }
+          if (state is BlogLoading) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Loading...'),
+                backgroundColor: Colors.blue,
+              ),
+            );
+          }
+        },
+        builder: (context, state) {
+          if (state is BlogDisplaySuccess) {
+            return ListView.builder(
+              itemCount: state.blogs.length,
+              itemBuilder: (context, index) {
+                final blog = state.blogs[index];
+                return Text(blog.title); // Display blog title
+                ;
+              },
+            );
+          }
+          if (state is BlogLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          return const Center(child: Text('No blogs found.'));
+        },
+      ),
     );
   }
 }
