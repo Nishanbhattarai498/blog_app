@@ -12,6 +12,7 @@ import 'package:supabase_proj/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:supabase_proj/features/blog/data/datasources/blog_remote_data_source.dart';
 import 'package:supabase_proj/features/blog/data/reposiories/blog_repository_impl.dart';
 import 'package:supabase_proj/features/blog/domain/repositories/blog_repository.dart';
+import 'package:supabase_proj/features/blog/domain/usecases/get_all_blogs.dart';
 import 'package:supabase_proj/features/blog/domain/usecases/upload_blog.dart';
 import 'package:supabase_proj/features/blog/presentation/bloc/blog_bloc.dart';
 
@@ -62,5 +63,10 @@ void _initBlog() {
   serviceLocator.registerFactory(
     () => UploadBlog(blogRepository: serviceLocator()),
   );
-  serviceLocator.registerLazySingleton(() => BlogBloc(serviceLocator()));
+  serviceLocator.registerFactory(
+    () => GetAllBlogs(blogRepository: serviceLocator()),
+  );
+  serviceLocator.registerLazySingleton(
+    () => BlogBloc(uploadBlog: serviceLocator(), getAllBlogs: serviceLocator()),
+  );
 }

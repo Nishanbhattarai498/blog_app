@@ -101,7 +101,7 @@ class _AddNewBlogPageState extends State<AddNewBlogPage> {
               builder: (context) =>
                   const Center(child: CircularProgressIndicator()),
             );
-          } else if (state is BlogSuccess) {
+          } else if (state is BlogUploadSuccess) {
             // Hide loading indicator and show success message
             Navigator.pop(context); // Close the loading dialog
             ScaffoldMessenger.of(context).showSnackBar(
