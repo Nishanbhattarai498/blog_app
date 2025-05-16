@@ -10,6 +10,7 @@ class BlogModel extends Blog {
     required super.topics,
     required super.createdAt,
     required super.updatedAt,
+    super.posterName,
   });
 
   factory BlogModel.fromJson(Map<String, dynamic> json) {
@@ -42,16 +43,27 @@ class BlogModel extends Blog {
     };
   }
 
-  BlogModel copyWith({required String imageUrl}) {
+  BlogModel copyWith({
+    required String imageUrl,
+    String? id,
+    String? title,
+    String? posterID,
+    String? content,
+    List<String>? topics,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    String? posterName,
+  }) {
     return BlogModel(
-      id: id,
-      title: title,
-      posterID: posterID,
+      id: id ?? this.id,
+      title: title ?? this.title,
+      posterID: posterID ?? this.posterID,
       imageUrl: imageUrl,
-      content: content,
-      topics: topics,
-      createdAt: createdAt,
-      updatedAt: updatedAt,
+      content: content ?? this.content,
+      topics: topics ?? this.topics,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      posterName: posterName ?? this.posterName,
     );
   }
 }

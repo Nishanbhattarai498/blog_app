@@ -7,6 +7,7 @@ class Blog {
   final List<String> topics;
   final DateTime createdAt;
   final DateTime updatedAt;
+  final String? posterName;
 
   const Blog({
     required this.id,
@@ -17,5 +18,6 @@ class Blog {
     required this.topics,
     required this.createdAt,
     required this.updatedAt,
+    this.posterName,
   });
 }
