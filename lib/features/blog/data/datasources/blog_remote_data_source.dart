@@ -25,13 +25,15 @@ class BlogRemoteDataSourceImpl implements BlogRemoteDataSource {
         'image_url': blog.imageUrl,
         'content': blog.content,
         'topics': blog.topics,
+        'created_at': DateTime.now().toIso8601String(),
+        'updated_at': DateTime.now().toIso8601String(),
       }).select();
 
-      if (response != null && response.isNotEmpty) {
-        return BlogModel.fromJson(response[0]);
-      } else {
+      if (response.isEmpty) {
         throw ServerException('Failed to upload blog: Empty response');
       }
+
+      return BlogModel.fromJson(response[0]);
     } catch (e) {
       throw ServerException(e.toString());
     }
@@ -59,7 +61,9 @@ class BlogRemoteDataSourceImpl implements BlogRemoteDataSource {
     try {
       final blogs = await supabaseClient
           .from('blogs')
-          .select('*,profiles(name)');
+          .select(
+            'id, title, poster_id, image_url, content, topics, created_at, updated_at, profiles(id, name)',
+          );
 
       return blogs
           .map(

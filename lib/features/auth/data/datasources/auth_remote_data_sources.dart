@@ -68,7 +68,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       await supabaseClient.from('profiles').insert({
         'id': response.user!.id,
         'name': name,
-        'email': email,
       });
 
       return UserModel.fromJson(response.user!.toJson());
